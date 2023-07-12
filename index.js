@@ -5,11 +5,9 @@ require('dotenv').config()
 const { clientId, guildId } = require('./config.json');
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessages,
-    ]
+    intents: Object.keys(GatewayIntentBits).map((a) => {
+        return GatewayIntentBits[a]
+    }),
 });
 
 client.commands = new Collection();
@@ -55,7 +53,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 });
 
-client.once(Events.ClientReady, c => {
+client.once(Events.ClientReady, async c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
