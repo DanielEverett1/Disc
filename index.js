@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { ActivityType, Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 require('dotenv').config()
 const { clientId, guildId } = require('./config.json');
 
@@ -55,6 +55,9 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.once(Events.ClientReady, async c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
+    let guild = client.guilds.cache.get('1127367853889302538');
+    let users = guild.memberCount;
+    client.user.setActivity(`${users} members`, { type: ActivityType.Watching });
 });
 
 client.login(process.env.SCtoken);
