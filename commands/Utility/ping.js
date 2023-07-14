@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
     .setDescription('Replies with ping!'),
+
   async execute(interaction) {
     const pingEmbed = new EmbedBuilder()
       .setColor(0x0099ff)

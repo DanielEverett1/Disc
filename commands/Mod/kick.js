@@ -54,7 +54,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setDescription(`${user} has been kicked.`)
-                            .setColor('Yellow')
+                            .setColor(0x0099ff)
                     ]
                 });
             } catch (error) {

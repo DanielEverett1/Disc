@@ -20,15 +20,20 @@ module.exports = {
         const staff = interaction.guild.roles.cache.find(role => role.name === "Staff");
 
         if (interaction.member.roles.cache.has(staff.id)) {
-            const guild = interaction.client.guild.cache.get();
-            const userID = interaction.options.get('target');
             // Check if the user is banned.
-            const isBanned = guild.bans.cache.find((ban) => ban.user.id === userID);
-            console.log(isBanned)
+            const isBanned = (user) => {
+                const guildID = interaction.guild.id;
+                const banList = guildID.bans;
+                for (const ban of banList) {
+                    if (ban.user.id === user.id) {
+                        return true;
+                    }
+                }
+                return false;
+            };
 
-            if (isBanned) {
-                // Unban the user.
-                interaction.guild.unban(userID);
+            if (isBanned == true) {
+                interaction.guild.members.unban(interaction.options.getUser('target'));
 
                 return interaction.reply({
                     content: "`✅` The user has been unbanned.",
